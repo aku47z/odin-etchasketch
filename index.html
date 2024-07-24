@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Etch-A-Sketch</title>
+    <style>
+      * {
+        font-family: sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        margin: 20px 0;
+      }
+
+      #container {
+        display: flex;
+      }
+
+      #grid {
+        height: 50vw;
+        width: 50vw;
+        margin: auto 50px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+      }
+
+      #settings {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: auto;
+      }
+
+      button {
+        background-color: beige;
+        width: 100px;
+        height: 50px;
+        margin: auto;
+        border: 1px solid grey;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        opacity: 60%;
+      }
+
+      .box {
+        border: 1px solid black;
+        background-color: lightgray;
+        flex-grow: 1;
+      }
+
+      .row {
+        display: flex;
+        flex-grow: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Etch-A-Sketch</h1>
+    <div id="container">
+      <div id="grid"></div>
+      <div id="settings">
+        <h3>Grid size</h3>
+        <button id="4">4x4</button>
+        <button id="8">8x8</button>
+        <button id="16">16x16</button>
+        <button id="32">32x32</button>
+        <button id="64">64x64</button>
+        <button>Custom</button>
+      </div>
+    </div>
+    <script>
+      makeGrid(16);
+
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          makeGrid(btn.id);
+        });
+      });
+
+      function makeGrid(gridSize) {
+        if (gridSize === "custom" || gridSize < 1 || gridSize > 100)
+          makeGrid(prompt("Enter custom size (1-100)"));
+        else {
+          const container = document.querySelector("#container");
+          const newGrid = document.createElement("div");
+          newGrid.id = "grid";
+          for (let i = 0; i < gridSize; i++) {
+            const row = document.createElement("div");
+            row.classList.add("row");
+            for (let j = 0; j < gridSize; j++) {
+              const box = document.createElement("div");
+              box.classList.add("box");
+              row.appendChild(box);
+            }
+            newGrid.appendChild(row);
+          }
+          container.replaceChild(newGrid, document.querySelector("#grid"));
+        }
+      }
+    </script>
+  </body>
+</html>

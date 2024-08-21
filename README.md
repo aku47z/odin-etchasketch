@@ -1,1 +1,1 @@
-Simple rock paper scissors project from the odin project foundations course.
+Simple Etch-A-Sketch project from the odin project's foundations course.
